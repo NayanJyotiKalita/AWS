@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     ec2 = boto3.client('ec2')
 
     # Snapshots older than 30 days
-    cutoff_date = datetime.now(timezone.utc) - timedelta(days=1)  # We can change the date according to our needs
+    cutoff_date = datetime.now(timezone.utc) - timedelta(days=1)  # We can change the no of days according to our needs, or we can also put minutes and hours if necessary
 
     # Get all snapshots owned by this account
     snapshots = ec2.describe_snapshots(OwnerIds=['self'])
