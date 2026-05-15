@@ -6,8 +6,8 @@ def lambda_handler(event, context):
 
     ec2 = boto3.client('ec2')
 
-    # Define 30-day cutoff
-    cutoff_date = datetime.now(timezone.utc) - timedelta(days=30)
+    # Define 2-day cutoff
+    cutoff_date = datetime.now(timezone.utc) - timedelta(days=2)
 
     # Get all snapshots owned by this account
     snapshots = ec2.describe_snapshots(OwnerIds=['self'])
@@ -20,12 +20,12 @@ def lambda_handler(event, context):
 
         print(f"Checking snapshot: {snapshot_id}")
 
-        # Skip snapshots newer than 30 days
+        # Skip snapshots newer than 2 days
         if snapshot_time > cutoff_date:
-            print(f"Keeping {snapshot_id} - newer than 30 days")
+            print(f"Keeping {snapshot_id} - newer than 2 days")
             continue
 
-        print(f"{snapshot_id} is older than 30 days")
+        print(f"{snapshot_id} is older than 2 days")
 
         # If snapshot has no volume associated
         if not volume_id:
