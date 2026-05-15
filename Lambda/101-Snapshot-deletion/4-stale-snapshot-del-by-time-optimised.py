@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     ec2 = boto3.client('ec2')
 
     # Define 2-day cutoff
-    cutoff_date = datetime.now(timezone.utc) - timedelta(days=2)
+    cutoff_date = datetime.now(timezone.utc) - timedelta(days=2)  # we can change days to hours and minutes however we want according to the need
 
     # Get all snapshots owned by this account
     snapshots = ec2.describe_snapshots(OwnerIds=['self'])
